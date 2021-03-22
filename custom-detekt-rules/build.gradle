@@ -1,0 +1,18 @@
+plugins {
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "junit:junit:4.13.2"
+
+    implementation "io.gitlab.arturbosch.detekt:detekt-api:$detekt_version"
+    testImplementation "io.gitlab.arturbosch.detekt:detekt-api:$detekt_version"
+    testImplementation "io.gitlab.arturbosch.detekt:detekt-test:$detekt_version"
+    testImplementation "org.assertj:assertj-core:3.15.0"
+}

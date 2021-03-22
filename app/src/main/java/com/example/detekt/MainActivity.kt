@@ -11,4 +11,22 @@ class MainActivity : AppCompatActivity() {
         val foo = Foo()
         foo.toString()
     }
+
+    fun  nice(){
+
+    }
+
+    fun bro(){
+        "".toString()
+        "".toString()
+        "".toString()
+    }
+
+    fun crazy(){
+        "".toString()
+        "".toString()
+        "".toString()
+        bro()
+        bro()
+    }
 }
