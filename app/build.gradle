@@ -44,7 +44,7 @@ detekt {
             enabled = true
         }
         xml {
-            enabled = false
+            enabled = true
         }
         html {
             enabled = false
@@ -71,7 +71,7 @@ task detektOnFiles(type: io.gitlab.arturbosch.detekt.Detekt) {
                     enabled = true
                 }
                 xml {
-                    enabled = false
+                    enabled = true
                 }
                 html {
                     enabled = false
