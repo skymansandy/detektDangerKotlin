@@ -8,6 +8,6 @@ class OtherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-//        intent.getStringExtra("")
+        val name = intent.getStringExtra("name") ?: "default"
     }
 }
