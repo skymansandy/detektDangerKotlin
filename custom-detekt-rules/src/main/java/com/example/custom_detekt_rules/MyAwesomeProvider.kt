@@ -13,6 +13,7 @@ class MyAwesomeProvider(override val ruleSetId: String = "my-app-my-rules") : Ru
                 TooManyFunctionsRule(),
                 NoInternalImportRule(),
                 NoConstructorFragmentsRule(),
+                ProperUseOfGetterRule(),
                 DirectIntentUseRule()
             )
         )

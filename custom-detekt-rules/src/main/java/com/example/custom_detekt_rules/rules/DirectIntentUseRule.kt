@@ -2,33 +2,26 @@ package com.example.custom_detekt_rules.rules
 
 import io.gitlab.arturbosch.detekt.api.*
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
-import org.jetbrains.kotlin.psi.KtClass
-import org.jetbrains.kotlin.psi.KtFile
-import org.jetbrains.kotlin.psi.KtNamedFunction
+import org.jetbrains.kotlin.psi.*
+import org.jetbrains.kotlin.psi.psiUtil.containingClass
+import kotlin.math.exp
 
 class DirectIntentUseRule : Rule() {
 
     override val issue = Issue(javaClass.simpleName, Severity.CodeSmell, "", Debt.FIVE_MINS)
 
-    private var isIntentAwareFile = false
+    override fun visitBlockExpression(expression: KtBlockExpression) {
+        super.visitBlockExpression(expression)
+        expression.containingClass()
+        if (expression.containingClass()?.nameIdentifier?.text?.contains("MainActivity") == true) return
 
-    override fun visitClass(klass: KtClass) {
-        super.visitClass(klass)
-        isIntentAwareFile = true
-    }
-
-    override fun visitNamedFunction(function: KtNamedFunction) {
-        super.visitNamedFunction(function)
-        if (isIntentAwareFile) return
-
-        val statements = function.bodyBlockExpression?.statements ?: arrayListOf()
-        statements.forEach {
+        expression.statements.forEach {
             val statement = it
             if (it.text.contains("getStringExtra")) {
                 report(
                     CodeSmell(
-                        issue, Entity.from(function),
-                        "Function '$function' has a direct use of intent. Caution!!"
+                        issue, Entity.from(expression),
+                        "Expression '$expression' has a direct use of intent. Caution!!"
                     )
                 )
             }
