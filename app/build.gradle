@@ -4,6 +4,8 @@ plugins {
     id 'io.gitlab.arturbosch.detekt'
 }
 
+//apply from: './detekt.gradle.kts'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -40,11 +42,38 @@ detekt {
     config = files("config/detekt/detekt.yml")
     autoCorrect = true
     reports {
-        xml {
+        txt {
             enabled = true
         }
+        xml {
+            enabled = false
+        }
         html {
-            enabled = true
+            enabled = false
+        }
+    }
+}
+
+task detektOnFiles(type: io.gitlab.arturbosch.detekt.Detekt) {
+    if (project.hasProperty("kotlinFiles")) {
+        def kotlinFiles = project.property("kotlinFiles")
+        def listOfFiles = kotlinFiles.split(",")
+        if (listOfFiles != null) {
+            input = files(listOfFiles)
+            config = files("config/detekt/detekt.yml")
+            filters = ".*/resources/.*,.*/build/.*"
+            autoCorrect = true
+            reports {
+                txt {
+                    enabled = true
+                }
+                xml {
+                    enabled = false
+                }
+                html {
+                    enabled = false
+                }
+            }
         }
     }
 }
@@ -61,5 +90,5 @@ dependencies {
 
     detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
     detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detekt_version")
-    detekt project (":custom-detekt-rules")
+    detekt project(":custom-detekt-rules")
 }

@@ -16,7 +16,6 @@ class DirectIntentUseRule : Rule() {
         if (expression.containingClass()?.nameIdentifier?.text?.contains("MainActivity") == true) return
 
         expression.statements.forEach {
-            val statement = it
             if (it.text.contains("getStringExtra")) {
                 report(
                     CodeSmell(
