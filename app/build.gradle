@@ -4,8 +4,6 @@ plugins {
     id 'io.gitlab.arturbosch.detekt'
 }
 
-//apply from: './detekt.gradle.kts'
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
