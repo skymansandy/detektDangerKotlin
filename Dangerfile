@@ -2,7 +2,7 @@ kotlin_files = (git.added_files + git.modified_files).select{ |file| file.end_wi
 kotlin_files = kotlin_files.each{ |s| s[4, s.length - 1] }
 unless kotlin_files.empty?
   comma_separated_kotlin_files = kotlin_files.join(",")
-  puts "Files"+comma_separated_kotlin_files
+  puts "Files: "+kotlin_files
   detekt_report_file = "./build/reports/detekt/detekt.xml"
   puts `./gradlew detektOnFiles -PkotlinFiles=#{comma_separated_kotlin_files}`
   checkstyle_format.base_path = Dir.pwd
