@@ -1,4 +1,5 @@
 kotlin_files = (git.added_files + git.modified_files).select{ |file| file.end_with?(".kt", ".kts") }
+kotlin_files = kotlin_files.each{ |s| s[4, s.length - 1] }
 unless kotlin_files.empty?
   comma_separated_kotlin_files = kotlin_files.join(",")
   detekt_report_file = "./build/reports/detekt/detekt.xml"
