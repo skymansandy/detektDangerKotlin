@@ -52,6 +52,11 @@ detekt {
     }
 }
 
+/**
+ * Run on only specific files
+ * ex: ./gradlew detektOnFiles -PkotlinFiles=src/main/java/com/example/detekt/MainActivity.kt
+ * (comma seperated file path with base as src)
+ */
 task detektOnFiles(type: io.gitlab.arturbosch.detekt.Detekt) {
     if (project.hasProperty("kotlinFiles")) {
         def kotlinFiles = project.property("kotlinFiles")
