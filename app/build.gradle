@@ -36,7 +36,6 @@ android {
 detekt {
     toolVersion = "$detekt_version"
     input = files("src/main/java")
-    filters = ".*/resources/.*,.*/build/.*"
     config = files("config/detekt/detekt.yml")
     autoCorrect = true
     reports {
@@ -44,7 +43,7 @@ detekt {
             enabled = true
         }
         xml {
-            enabled = false
+            enabled = true
         }
         html {
             enabled = false
@@ -64,14 +63,13 @@ task detektOnFiles(type: io.gitlab.arturbosch.detekt.Detekt) {
         if (listOfFiles != null) {
             input = files(listOfFiles)
             config = files("config/detekt/detekt.yml")
-            filters = ".*/resources/.*,.*/build/.*"
             autoCorrect = true
             reports {
                 txt {
                     enabled = true
                 }
                 xml {
-                    enabled = false
+                    enabled = true
                 }
                 html {
                     enabled = false

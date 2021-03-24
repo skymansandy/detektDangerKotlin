@@ -10,26 +10,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun nice() {
-        val data = intent.getStringExtra("")
-        crazy()
+    fun directIntentCall() {
+        val intent = intent
+        intent.getBundleExtra("")
+        intent.extras // should throw warning too
     }
 
-    fun bro() {
-        "".toString()
-        "".toString()
-        "".toString()
+    private fun fakeDirectIntentCall() {
+        val fakeIntent = FakeIntent()
+        fakeIntent.getStringExtra()
     }
 
     fun crazy() {
         "".toString()
         "".toString()
         "".toString()
-        bro()
-        bro()
-        bro()
-        bro()
-        bro()
-        bro()
     }
 }
