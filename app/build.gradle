@@ -36,7 +36,6 @@ android {
 detekt {
     toolVersion = "$detekt_version"
     input = files("src/main/java")
-    filters = ".*/resources/.*,.*/build/.*"
     config = files("config/detekt/detekt.yml")
     autoCorrect = true
     reports {
