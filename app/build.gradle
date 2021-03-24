@@ -63,7 +63,6 @@ task detektOnFiles(type: io.gitlab.arturbosch.detekt.Detekt) {
         if (listOfFiles != null) {
             input = files(listOfFiles)
             config = files("config/detekt/detekt.yml")
-            filters = ".*/resources/.*,.*/build/.*"
             autoCorrect = true
             reports {
                 txt {
