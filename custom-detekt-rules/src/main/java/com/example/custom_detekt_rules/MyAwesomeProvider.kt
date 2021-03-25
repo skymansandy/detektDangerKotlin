@@ -12,7 +12,7 @@ class MyAwesomeProvider(override val ruleSetId: String = "my-app-my-rules") : Ru
             ruleSetId, listOf(
                 TooManyFunctionsRule(),
                 NoInternalImportRule(),
-                NoConstructorFragmentsRule(),
+                FragmentDefaultConstructorRule(),
                 ProperUseOfGetterRule(),
                 DirectIntentUseRule()
             )
