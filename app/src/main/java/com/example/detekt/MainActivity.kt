@@ -13,17 +13,17 @@ class MainActivity : AppCompatActivity() {
     fun directIntentCall() {
         val intent = intent
         intent.getBundleExtra("")
+        getBundleExtra("")
         intent.extras // should throw warning too
     }
 
     private fun fakeDirectIntentCall() {
         val fakeIntent = FakeIntent()
         fakeIntent.getStringExtra()
+        fakeIntent.extras
     }
 
-    fun crazy() {
-        "".toString()
-        "".toString()
+    fun getBundleExtra(string: String) {
         "".toString()
     }
 }
