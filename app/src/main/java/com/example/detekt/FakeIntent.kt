@@ -5,7 +5,9 @@ class FakeIntent {
         print("fake getStringExtra")
     }
 
-    fun getExtra(){
+    fun getExtras() {
         print("Just testing getExtras")
     }
+
+    val extras = ""
 }
