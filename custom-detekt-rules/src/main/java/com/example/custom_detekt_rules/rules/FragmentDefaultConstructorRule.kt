@@ -19,7 +19,7 @@ class FragmentDefaultConstructorRule : Rule() {
                 CodeSmell(
                     issue,
                     Entity.from(classOrObject),
-                    "Fragment class ${classOrObject.name} has overridden primary constructor. This should be avoided in Android."
+                    "Fragment class `${classOrObject.name}` has overridden primary constructor. This should be avoided in Android."
                 )
             )
         }
