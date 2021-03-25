@@ -68,7 +68,7 @@ class DirectIntentUseRule : Rule() {
                 CodeSmell(
                     issue,
                     Entity.from(expression),
-                    "Expression `${expression.text}` has a direct use of intent extras accessor. " +
+                    "Expression `${expression.name}` is a direct use of intent extras accessor. " +
                             "Consider accessing through `IntentAware` interface to handle possible null values."
                 )
             )
