@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'io.gitlab.arturbosch.detekt'
+    id "org.sonarqube"
 }
 
 android {
@@ -30,6 +31,17 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.java.binaries", "build/intermediates/classes/debug"
+        property "sonar.jacoco.reportPath", "build/outputs/code-coverage/connected/coverage.ec"
+        property "sonar.projectKey", "com.example.detekt"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "afbc96674f4a62ea2a71c6d250ed3e45042ead1a"
+        property "sonar.kotlin.detekt.reportPaths", "${project.buildDir}/reports/detekt/release.xml"
     }
 }
 
