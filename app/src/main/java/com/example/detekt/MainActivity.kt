@@ -29,17 +29,18 @@ class MainActivity : AppCompatActivity() {
 
     fun getBundleExtra(string: String) {
         "".toString()
-        string as FakeIntent
-        string as? FakeIntent
-        string as List<String>
-        string as? List<String>
-        string as? List<FakeIntent>
-        string as List<FakeIntent?>
-        string as? List<FakeIntent?>
-        string as List<Map<String, FakeIntent>>
-        string as List<Map<String, FakeIntent?>>
-        string as Map<String, List<FakeIntent?>>
-        string as Map<String, List<FakeIntent?>?>
+        var list: List<FakeIntent>? = null
+        list as FakeIntent
+        list as? FakeIntent
+        list as List<String>
+        list as? List<String>
+        list as? List<FakeIntent>
+        list as List<FakeIntent?>
+        list as? List<FakeIntent?>
+        list as List<Map<String, FakeIntent>>
+        list as List<Map<String, FakeIntent?>>
+        list as Map<String, List<FakeIntent?>>
+        list as Map<String, List<FakeIntent?>?>
         launchActivity<OtherActivity>()
         launchActivity<FakeIntent>()
         startActivity(Intent(this, OtherActivity::class.java))

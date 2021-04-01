@@ -2,7 +2,9 @@ package com.example.custom_detekt_rules.rule
 
 import com.example.custom_detekt_rules.util.PSIUtil.getKotlinType
 import io.gitlab.arturbosch.detekt.api.*
+import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiWhiteSpace
+import org.jetbrains.kotlin.js.descriptorUtils.getJetTypeFqName
 import org.jetbrains.kotlin.psi.*
 
 class UncheckedTypeCastRule : Rule() {
@@ -19,6 +21,8 @@ class UncheckedTypeCastRule : Rule() {
 
         val whiteSpace = typeReference.prevSibling as? PsiWhiteSpace ?: return
         val opReference = whiteSpace.prevSibling as? KtOperationReferenceExpression ?: return
+        val psiElement = opReference.prevSibling?.prevSibling ?: return
+        print("Before operation expr: ${psiElement.text} and its type: ${psiElement.getKotlinType(bindingContext)}")
         if (typeReference.isApiV3() && isUnsafeAsCall(opReference)) {
             print("\n\nReference Expression: ${typeReference.text}")
             reportWarning(typeReference)
