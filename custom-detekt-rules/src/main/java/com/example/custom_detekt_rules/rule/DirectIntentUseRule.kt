@@ -1,4 +1,4 @@
-package com.example.custom_detekt_rules.rules
+package com.example.custom_detekt_rules.rule
 
 import io.gitlab.arturbosch.detekt.api.*
 import org.jetbrains.kotlin.psi.*
