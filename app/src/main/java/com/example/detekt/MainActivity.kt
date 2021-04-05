@@ -45,6 +45,16 @@ class MainActivity : AppCompatActivity() {
         launchActivity<FakeIntent>()
         startActivity(Intent(this, OtherActivity::class.java))
     }
+/*
+    fun spanExample() {
+        val spannable = SpannableString("You can start learning Android from MindOrks")
+        spannable.setSpan(
+            ForegroundColorSpan(Color.RED),
+            36, // start
+            44, // end
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+    }*/
 }
 
 inline fun <reified T : Any> Activity.launchActivity(

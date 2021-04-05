@@ -1,6 +1,9 @@
 package com.example.custom_detekt_rules.rule
 
+import com.example.custom_detekt_rules.util.PSIUtil.getKotlinJetType
+import com.example.custom_detekt_rules.util.PSIUtil.getKotlinType
 import io.gitlab.arturbosch.detekt.api.*
+import org.jetbrains.kotlin.js.descriptorUtils.getJetTypeFqName
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.containingClass
 import org.jetbrains.kotlin.resolve.calls.callUtil.getResolvedCall
@@ -18,7 +21,7 @@ class DirectIntentUseRule : Rule() {
     companion object {
         private const val allowedClassName = "IntentAware"
         private const val intentKotlinType =
-            "(android.content.Intent" //Type resolved by the detekt library for an Intent instance.
+            "android.content.Intent" //Type resolved by the detekt library for an Intent instance.
 
         private val intentMethods = arrayOf(
             "getBundleExtra",
@@ -63,7 +66,7 @@ class DirectIntentUseRule : Rule() {
         super.visitReferenceExpression(expression)
         if (isExpressionInAllowedClass(expression)) return
 
-        if (isCalledOnTypeIntent(expression) && isExtrasAccessorMethod(expression)) {
+        if (isExtrasAccessorMethod(expression) && isCalledOnTypeIntent(expression)) {
             report(
                 CodeSmell(
                     issue,
@@ -82,12 +85,11 @@ class DirectIntentUseRule : Rule() {
         val dotExpression = expression.prevSibling
         val callerObj = when (dotExpression?.parent) {
             is KtDotQualifiedExpression -> dotExpression.prevSibling
+            is KtSafeQualifiedExpression -> dotExpression.prevSibling
             else -> return false
         }
-        return (callerObj as? KtElement).getResolvedCall(bindingContext)
-            ?.resultingDescriptor
-            ?.returnType?.toString()
-            ?.startsWith(intentKotlinType) ?: false
+        val type = callerObj?.getKotlinJetType(bindingContext)?.getJetTypeFqName(false)
+        return type == intentKotlinType || type == "$intentKotlinType?"
     }
 
     /**

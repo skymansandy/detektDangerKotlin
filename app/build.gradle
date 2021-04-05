@@ -48,7 +48,8 @@ sonarqube {
 detekt {
     toolVersion = "$detekt_version"
     input = files("src/main/java")
-    config = files("config/detekt/detekt.yml")
+    config.from(file("config/detekt/detekt.yml"))
+    baseline = file("config/detekt/baseline.xml")
     autoCorrect = true
     reports {
         txt {
@@ -69,27 +70,59 @@ detekt {
  * (comma seperated file path with base as src)
  */
 task detektOnFiles(type: io.gitlab.arturbosch.detekt.Detekt) {
+    description = "Runs detekt on specified Comma seperated list of files"
+
+    config.from(file("$rootDir/app/config/detekt/detekt.yml"))
+    classpath.setFrom(project.configurations.getByName("detekt"))
+    jvmTarget = "1.8"
+    reports {
+        txt {
+            enabled = true
+            destination = file("${project.buildDir}/reports/detekt/detekt.txt")
+        }
+        xml {
+            enabled = true
+            destination = file("${project.buildDir}/reports/detekt/detekt.xml")
+        }
+        html {
+            enabled = false
+            destination = file("${project.buildDir}/reports/detekt/detekt.html")
+        }
+    }
+
     if (project.hasProperty("kotlinFiles")) {
         def kotlinFiles = project.property("kotlinFiles")
         def listOfFiles = kotlinFiles.split(",")
-        if (listOfFiles != null) {
-            input = files(listOfFiles)
-            config = files("config/detekt/detekt.yml")
-            autoCorrect = true
-            reports {
-                txt {
-                    enabled = true
-                }
-                xml {
-                    enabled = true
-                }
-                html {
-                    enabled = false
-                }
-            }
-        }
+        source = files(listOfFiles)
     }
 }
+
+tasks.register("detektCustom", io.gitlab.arturbosch.detekt.Detekt.class) { detektTask ->
+    detektTask.config.from("$rootDir/app/config/detekt/detekt.yml")
+    detektTask.jvmTarget = "1.8"
+    detektTask.classpath.setFrom(buildscript.configurations.classpath)
+    detektTask.reports {
+        txt {
+            enabled = true
+            destination = file("${project.buildDir}/reports/detekt/detekt.txt")
+        }
+        xml {
+            enabled = true
+            destination = file("${project.buildDir}/reports/detekt/detekt.xml")
+        }
+        html {
+            enabled = false
+            destination = file("${project.buildDir}/reports/detekt/detekt.html")
+        }
+    }
+
+    if (project.hasProperty("kotlinFiles")) {
+        def kotlinFiles = project.property("kotlinFiles")
+        def listOfFiles = kotlinFiles.split(",")
+        detektTask.source = files(listOfFiles)
+    }
+}
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

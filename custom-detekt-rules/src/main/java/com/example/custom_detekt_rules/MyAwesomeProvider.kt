@@ -12,11 +12,12 @@ class MyAwesomeProvider(override val ruleSetId: String = "my-app-my-rules") : Ru
     override fun instance(config: Config): RuleSet {
         return RuleSet(
             ruleSetId, listOf(
-//                FragmentDefaultConstructorRule(),
-//                SingleSourceOfLaunchRule(),
-//                UseGCAssistSubscribeRule(),
-                UncheckedTypeCastRule()
-//                DirectIntentUseRule()
+                FragmentDefaultConstructorRule(),
+                SingleSourceOfLaunchRule(),
+                UseGCAssistSubscribeRule(),
+                NoManualTextSpanRule(),
+                LateInitAutoGCRule(),
+                DirectIntentUseRule()
             )
         )
     }

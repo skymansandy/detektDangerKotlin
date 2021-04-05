@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.psi.KtTypeReference
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.calls.callUtil.getResolvedCall
 import org.jetbrains.kotlin.resolve.typeBinding.createTypeBinding
+import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
 object PSIUtil {
@@ -15,6 +16,12 @@ object PSIUtil {
         return (this as? KtElement).getResolvedCall(bindingContext)
             ?.resultingDescriptor
             ?.returnType?.toString()
+    }
+
+    fun PsiElement.getKotlinJetType(bindingContext: BindingContext): KotlinType? {
+        return (this as? KtElement).getResolvedCall(bindingContext)
+            ?.resultingDescriptor
+            ?.returnType
     }
 
     fun KtTypeReference.getKotlinType(bindingContext: BindingContext): String? {
